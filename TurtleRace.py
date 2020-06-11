@@ -23,10 +23,6 @@ class Dice():
         return roll
 
 
-def do_a_flip(turtle):
-    turtle.circle(10)
-
-
 player1 = turtle.Turtle()
 player1.shape("turtle")
 player1.speed(5)
@@ -80,15 +76,13 @@ writing_turtle.clear()
 while (player1.xcor() < player1target.xcor()) and (player2.xcor() < player2target.xcor()):
     if turn % 2 == 0:
         player1.forward(dice.roll_dice() * 20)
-        do_a_flip(player1)
     else:
         player2.forward(dice.roll_dice() * 20)
-        do_a_flip(player2)
     turn += 1
 
 if turn % 2 == 0:
     turtle.write("Player 2 wins", font=("Arial", 20, "normal"))
 else:
     turtle.write("player 1 wins", font=("Arial", 20, "normal"))
-
+turtle.hideturtle()
 turtle.done()
