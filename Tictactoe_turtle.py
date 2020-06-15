@@ -20,7 +20,8 @@ def draw_board():
     drawer.pensize(10)
 
 
-def spread_turtles():
+def spread_turtles_out():
+    global spread_turtles
     spread_turtles = []
     for int in range(9):
         spread_turtles.append(turtle.Turtle())
@@ -51,7 +52,6 @@ def draw_x(x, y):
     drawer.forward(45)
     drawer.backward(90)
     drawer.forward(45)
-    print(str(drawer.xcor()) + " " + str(drawer.ycor()))
 
 
 def draw_o(x, y):
@@ -68,7 +68,9 @@ drawer.speed(10)
 drawer.hideturtle()
 
 draw_board()
-spread_turtles()
+spread_turtles_out()
 
-turtle.onscreenclick(draw_x)
+spread_turtles[0].onclick(draw_x)
+
 turtle.done()
+turtle.exitonclick()
