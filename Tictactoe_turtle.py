@@ -115,7 +115,6 @@ def thisTurn(board):
                 board[inputted_num] = 'o'
             break
         except Exception:
-            write_message("Invaild input. Spot already taken")
             time.sleep(3)
     turn += 1
 
@@ -171,6 +170,7 @@ o_drawer.hideturtle()
 
 draw_board()
 play_game(current_board)
+write_message("Press anywhere to exit")
 
 
 turtle.exitonclick()
