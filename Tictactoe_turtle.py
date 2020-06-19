@@ -1,5 +1,6 @@
 import turtle
 import random
+import time
 
 # drawing methods
 
@@ -56,9 +57,7 @@ def draw_o(x, y):
     o_drawer.penup()
     o_drawer.goto(x, y + 50)
     o_drawer.pendown()
-    o_drawer.speed(10)
     o_drawer.circle(50)
-    o_drawer.speed(0)
 
 
 def display_board_content(board):
@@ -100,16 +99,24 @@ def play_game(board):
 
 def thisTurn(board):
     global turn
-    if turn % 2 == 0:
-        write_message("Player 1".upper())
-        inputted_num = int(the_screen.numinput("Place your symbol",
-                                               "Where would you like to palce your symbol? (one of the numbers shown)", default=None, minval=1, maxval=9))
-        board[inputted_num] = 'x'
-    else:
-        write_message("Player 2".upper())
-        inputted_num = int(the_screen.numinput("Place your symbol",
-                                               "Where would you like to palce your symbol? (one of the numbers shown)", default=None, minval=1, maxval=9))
-        board[inputted_num] = 'o'
+    while True:
+        try:
+            if turn % 2 == 0:
+                write_message("Player 1".upper())
+                inputted_num = int(the_screen.numinput("Place your symbol",
+                                                       "Where would you like to palce your symbol? (one of the numbers shown)", default=None, minval=1, maxval=9))
+                if board[inputted_num] == "o" or board[inputted_num] == "x":
+                    raise Exception
+                board[inputted_num] = 'x'
+            else:
+                write_message("Player 2".upper())
+                inputted_num = int(the_screen.numinput("Place your symbol",
+                                                       "Where would you like to palce your symbol? (one of the numbers shown)", default=None, minval=1, maxval=9))
+                board[inputted_num] = 'o'
+            break
+        except Exception:
+            write_message("Invaild input. Spot already taken")
+            time.sleep(3)
     turn += 1
 
 
@@ -123,8 +130,10 @@ def is_winning_move(board):
         or board[3] == board[6] == board[9]
         or board[1] == board[5] == board[9]
             or board[3] == board[5] == board[7]):
-
-        write_message("winner!!")
+        if turn % 2 == 1:
+            write_message("Player 1 wins!".upper())
+        elif turn % 2 == 0:
+            write_message("player 2 wins!".upper())
         return True
     else:
         return False
